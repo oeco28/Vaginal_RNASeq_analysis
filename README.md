@@ -41,3 +41,59 @@ done`
 
 ### Post-processing mapped reads
 
+Fix mate pair information using Picard Tools (Version:2.23.6-1)
+
+`for i in `cat list`; do
+        java -Xmx6G -jar /media/venezuela7/repository_software_recent/picard/picard FixMateInformation INPUT=mapped_reads/$i.sam \
+        OUTPUT=mapped_reads/$i.fix.sam VALIDATION_STRINGENCY=SILENT
+done`
+
+Convert the SAM files of the mapped reads to BAM files using SAMtools (v.1.7). Keep the headers.
+
+`for i in `cat list`; do
+        samtools view -@ 10 -b -h mapped_reads/$i.fix.sam > mapped_reads/$i.bam
+done`
+
+Sort the BAM file by leftmost coordinates using SAMtools (v.1.7).
+
+`for i in `cat list`; do
+        samtools sort -o mapped_reads/$i.sorted.fixed.bam -O bam -T $i -@ 10 mapped_reads/$i.bam
+done`
+
+### Generate a Gene and Transcript Count Matrices
+
+Produce GTF files for each sample from the BAM files of mapped reads using StringTie2 (v 2.0). GTF files will then be used to create the gene counts matrix.
+done
+
+`
+mkdir stringtie_out_work
+for i in `cat list`; do
+        stringtie mapped_reads/$i.sorted.fixed.bam -o stringtie_out_work/$i -m 100 --rf -e -B -c 2 -p 2 \
+        -G /path_to_gtf/Homo_sapiens.GRCh38.84.gtf
+done`
+
+Generation of a de novo set of annotations for the set using the output gtf from each sample and merging
+
+`
+mkdir stringtie_out1
+for i in `cat list`; do
+stringtie mapped_reads/$i.sorted.fixed.bam -o stringtie_out1/$i -m 100 --rf -c 2 -p 2 \
+        #-G /path_to_gtf/Homo_sapiens.GRCh38.84.gtf \
+        #-A stringtie_out/$i.abundance
+done
+stringtie --merge -m 50 -o all_stringtie_merged -G /path_to_gtf/Homo_sapiens.GRCh38.84.gtf \
+/media/venezuela2/knunn_RNAseq/stringtie_out/Sample1 \
+/media/venezuela2/knunn_RNAseq/stringtie_out/Sample2 \
+/media/venezuela2/knunn_RNAseq/stringtie_out/Sample3 \
+/media/venezuela2/knunn_RNAseq/stringtie_out/Sample4 \
+/media/venezuela2/knunn_RNAseq/stringtie_out/Sample6 \
+`
+
+Use the Python script prepDE.py associated with StringTie to generate the gene counts matrix. sample_list.txt is a tab-delimited text file listing the sample names and the paths to the GTF files
+
+`python prepDE.py -i sample_list.txt -g gene_count_matrix.csv -t transcript_count_matrix.csv`
+
+## Differential Expression Analysis
+
+This will continue as we continue with the analysis
+
