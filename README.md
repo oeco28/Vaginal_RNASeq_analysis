@@ -1,5 +1,5 @@
 # Vaginal_RNASeq_analysis
-In this repository we are documenting the analysis of vaginal_rnaseq analysis of tissue cultures exposed to _L. crispatus_ using 6 test samples (only 5 had useful sequence data). Libraries were prepared using ribosomal depletion kits.
+In this repository we are documenting the analysis of vaginal_rnaseq analysis of tissue cultures exposed to _L. crispatus_ using 6 test samples (only 5 had useful sequence data). For the pilot experiment vaginal epithelial cell culture with L. crispatus at 1:1 cell counts were set and after 24 hours, cells were collected and total RNA was extracted. Libraries were prepared using ribosomal depletion kits.
 
 ## Analysis Pipeline
 
