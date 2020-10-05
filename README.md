@@ -93,6 +93,16 @@ Use the Python script prepDE.py associated with StringTie to generate the gene c
 
 `python prepDE.py -i sample_list.txt -g gene_count_matrix.csv -t transcript_count_matrix.csv`
 
+The file sample\_list.txt must have two columns (one containingt the Sample ID, and the second containing the full path to the GTF for each sample produced by stringtie2)
+
+First Column | Second Column
+------------ | -------------
+Sample1 | path_to_stringtie2_out/Sample1.gtf
+Sample2 | path_to_stringtie2_out/Sample2.gtf
+Sample3 | path_to_stringtie2_out/Sample3.gtf
+Sample4 | path_to_stringtie2_out/Sample4.gtf
+Sample6 | path_to_stringtie2_out/Sample6.gtf
+
 ## Differential Expression Analysis
 
 This will continue as we continue with the analysis
