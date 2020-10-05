@@ -1,5 +1,5 @@
 # Vaginal_RNASeq_analysis
-In this repository we are documenting the analysis of vaginal_rnaseq analysis of tissue cultures exposed to _G. vaginalis_
+In this repository we are documenting the analysis of vaginal_rnaseq analysis of tissue cultures exposed to _L. crispatus_ using 6 test samples (only 5 had useful sequence data). Libraries were prepared using ribosomal depletion kits.
 
 ## Analysis Pipeline
 
